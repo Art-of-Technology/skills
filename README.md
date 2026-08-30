@@ -12,6 +12,7 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 | cem-design-review | UI review: hierarchy, spacing, a11y, WCAG |
 | blog-content-agent | Research, write, and publish codebase-aware blog posts |
 | i-have-adhd | Shorten and structure output for an ADHD reader: actions first, numbered steps, no tangents |
+| humanizer | Strip AI-writing tells from customer-facing copy only: email, web UI strings, marketing, notifications |
 
 ## Use with Claude Code
 
