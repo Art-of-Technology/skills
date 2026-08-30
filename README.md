@@ -11,6 +11,7 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 | cem-nextjs-server-first | Move Next.js data fetching server-side, BFF, RSC |
 | cem-design-review | UI review: hierarchy, spacing, a11y, WCAG |
 | blog-content-agent | Research, write, and publish codebase-aware blog posts |
+| i-have-adhd | Shorten and structure output for an ADHD reader: actions first, numbered steps, no tangents |
 
 ## Use with Claude Code
 
