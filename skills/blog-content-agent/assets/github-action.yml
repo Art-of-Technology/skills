@@ -1,0 +1,88 @@
+# Copy to .github/workflows/daily-blog.yml in your content repo.
+#
+# Repo layout this assumes:
+#   .claude/skills/blog-content-agent/   the skill (commit it here)
+#   configs/<product>.json               one config per product
+#   state/<product>.json                 written and committed by this job
+#
+# Secrets: add ANTHROPIC_API_KEY plus the env vars your configs name
+# (BLOG_API_KEY, BANNER_API_KEY, NOTIFY_WEBHOOK_URL, REPO_TOKEN) under
+# Settings > Secrets and variables > Actions. Never commit their values.
+
+name: daily-blog
+on:
+  schedule:
+    - cron: "0 7 * * *"   # 07:00 UTC daily
+  workflow_dispatch:       # manual trigger, with a dry-run toggle
+    inputs:
+      dry_run:
+        description: "Run everything but do not publish or notify"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write          # needed to commit the state file back
+
+concurrency:
+  group: daily-blog-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20     # hard ceiling against a hung run
+    strategy:
+      max-parallel: 1       # serialize so state commits do not collide
+      matrix:
+        config:
+          - configs/product-a.json
+          - configs/product-b.json
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Preflight
+        run: python3 .claude/skills/blog-content-agent/scripts/preflight.py "${{ matrix.config }}"
+        env:
+          BLOG_API_KEY: ${{ secrets.BLOG_API_KEY }}
+          BANNER_API_KEY: ${{ secrets.BANNER_API_KEY }}
+          NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+
+      - name: Generate and publish post
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BLOG_API_KEY: ${{ secrets.BLOG_API_KEY }}
+          BANNER_API_KEY: ${{ secrets.BANNER_API_KEY }}
+          NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          claude -p "Use the blog-content-agent skill. Run end-to-end for the product configured in ${{ matrix.config }}. This is an unattended scheduled run, so auto-pick the strongest topic. If the environment variable DRY_RUN is true, run every step including the duplicate check but stop before publishing and notifying. Always run preflight first and stop if it fails." \
+            --allowedTools "Read,Write,Edit,Glob,Grep,Bash,WebSearch,WebFetch" \
+            --max-turns 40 \
+            --output-format json \
+            --dangerously-skip-permissions \
+            > run-${{ strategy.job-index }}.json
+          # --dangerously-skip-permissions is acceptable here because the runner is
+          # ephemeral and isolated, and the allowed tool list is scoped. Review the
+          # prompt before widening tools.
+
+      - name: Commit state
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          git config user.name "blog-content-agent"
+          git config user.email "bot@users.noreply.github.com"
+          git add state/ posts/ 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(blog): update state for ${{ matrix.config }} [skip ci]"
+            git push
+          else
+            echo "No state changes to commit."
+          fi

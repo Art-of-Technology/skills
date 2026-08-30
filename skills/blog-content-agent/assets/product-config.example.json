@@ -1,0 +1,60 @@
+{
+  "product": {
+    "name": "Your Product",
+    "url": "https://yourproduct.example",
+    "tagline": "One line on what it does",
+    "repo": "https://github.com/your-org/your-repo",
+    "repoPath": "",
+    "audience": "who you write for, e.g. backend engineers",
+    "voice": "technical but conversational",
+    "authorName": "Your Team",
+    "communityLinks": {
+      "discord": "",
+      "reddit": "",
+      "linkedin": "",
+      "github": ""
+    }
+  },
+  "writing": {
+    "minWords": 800,
+    "maxWords": 1200,
+    "titleMaxChars": 60,
+    "seoKeywords": [],
+    "bannedTerms": [],
+    "namedCompetitorsPolicy": "never name competitors"
+  },
+  "topicCategories": ["pain-point", "trend-analysis", "how-to", "deep-dive", "opinion"],
+  "state": {
+    "path": "",
+    "note": "Where rotation and publish history persist. Leave blank for state/<product-slug>.json next to this config. In CI, commit this file back so runs share history."
+  },
+  "banner": {
+    "enabled": false,
+    "provider": "none",
+    "executeUrl": "",
+    "pollUrlBase": "",
+    "promptTemplate": "create blog cover image for {title}",
+    "pollIntervalSeconds": 5,
+    "pollMaxAttempts": 12
+  },
+  "platform": {
+    "type": "generic-rest",
+    "publishUrl": "",
+    "searchUrl": "",
+    "authHeaderName": "Authorization",
+    "authScheme": "Bearer"
+  },
+  "notify": {
+    "enabled": false,
+    "type": "slack-webhook",
+    "primaryTarget": "",
+    "fallbackTarget": ""
+  },
+  "secrets": {
+    "note": "Set these as environment variables. Do not put values here. Do not commit secrets.",
+    "blogApiKeyEnv": "BLOG_API_KEY",
+    "bannerApiKeyEnv": "BANNER_API_KEY",
+    "repoTokenEnv": "REPO_TOKEN",
+    "notifyUrlEnv": "NOTIFY_WEBHOOK_URL"
+  }
+}
