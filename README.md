@@ -14,6 +14,7 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 | actionable-output | Short, clear, actionable responses: next action first, numbered steps, no tangents |
 | humanizer | Strip AI-writing tells from customer-facing copy only: email, web UI strings, marketing, notifications |
 | skill-creator | Create, improve, and eval agent skills (Anthropic official, Apache-2.0) |
+| frontend-design | Distinctive, non-generic UI design direction: typography, color, motion (Anthropic official, Apache-2.0) |
 
 ## Use with Claude Code
 
@@ -54,4 +55,4 @@ One skill per PR. Keep SKILL.md under 200 lines. Push detail into references/.
 
 ## License
 
-MIT. See [LICENSE](LICENSE). Vendored skills keep their upstream licenses: `humanizer` from [blader/humanizer](https://github.com/blader/humanizer) (MIT), `skill-creator` from [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) (Apache-2.0, see `skills/skill-creator/LICENSE.txt`).
+MIT. See [LICENSE](LICENSE). Vendored skills keep their upstream licenses: `humanizer` from [blader/humanizer](https://github.com/blader/humanizer) (MIT), `skill-creator` and `frontend-design` from [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) (Apache-2.0, see the `LICENSE.txt` in each folder).
