@@ -6,12 +6,12 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 
 | Skill | Purpose |
 |-------|---------|
-| cem-pr-loop | Drive a PR through Octopus Review feedback until 4+/5 |
-| cem-security-audit | OWASP-aligned audit for TS/Node and C#/ASP.NET Core |
-| cem-nextjs-server-first | Move Next.js data fetching server-side, BFF, RSC |
-| cem-design-review | UI review: hierarchy, spacing, a11y, WCAG |
+| aot-pr-loop | Drive a PR through Octopus Review feedback until 4+/5 |
+| aot-security-audit | OWASP-aligned audit for TS/Node and C#/ASP.NET Core |
+| aot-nextjs-server-first | Move Next.js data fetching server-side, BFF, RSC |
+| aot-design-review | UI review: hierarchy, spacing, a11y, WCAG |
 | blog-content-agent | Research, write, and publish codebase-aware blog posts |
-| i-have-adhd | Shorten and structure output for an ADHD reader: actions first, numbered steps, no tangents |
+| actionable-output | Short, clear, actionable responses: next action first, numbered steps, no tangents |
 | humanizer | Strip AI-writing tells from customer-facing copy only: email, web UI strings, marketing, notifications |
 
 ## Use with Claude Code
@@ -34,7 +34,7 @@ cd ~/art-of-technology-skills && git pull
 Point AGENTS.md at the skill you need, or paste the SKILL.md content as the task prompt. Example AGENTS.md line:
 
 ```
-For PR review loops, follow skills/cem-pr-loop/SKILL.md in Art-of-Technology/skills.
+For PR review loops, follow skills/aot-pr-loop/SKILL.md in Art-of-Technology/skills.
 ```
 
 Or vendor the repo as a submodule and reference files directly:
@@ -50,3 +50,7 @@ Each skill is a folder with a SKILL.md entry point. Larger skills add references
 ## Contributing
 
 One skill per PR. Keep SKILL.md under 200 lines. Push detail into references/.
+
+## License
+
+MIT. See [LICENSE](LICENSE). The `humanizer` skill is vendored from [blader/humanizer](https://github.com/blader/humanizer) under its own MIT license.

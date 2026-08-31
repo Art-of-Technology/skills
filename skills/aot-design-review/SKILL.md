@@ -1,9 +1,9 @@
 ---
-name: cem-design-review
-description: Review a web UI against visual design, interaction, and accessibility principles, then produce a prioritized findings report with concrete code fixes. Use this skill whenever the user asks to "review the UI", "review the design", "run a design review", "run cem-design-review", "does this look good", "make this look better", "the UI feels off", "improve the layout", "critique this screen", or mentions visual hierarchy, spacing, type scale, design tokens, contrast ratios, WCAG, focus states, touch targets, empty states, loading skeletons, layout shift, dark mode, or responsive breakpoints. Also trigger when reviewing a new component, dashboard, form, or data table before shipping, or when the user shares a screenshot or a Figma frame and wants feedback. Covers React, Next.js, Tailwind, and shadcn/ui. Even if the user does not say "review", use this skill when they want UI quality checked.
+name: aot-design-review
+description: Review a web UI against visual design, interaction, and accessibility principles, then produce a prioritized findings report with concrete code fixes. Use this skill whenever the user asks to "review the UI", "review the design", "run a design review", "run aot-design-review", "does this look good", "make this look better", "the UI feels off", "improve the layout", "critique this screen", or mentions visual hierarchy, spacing, type scale, design tokens, contrast ratios, WCAG, focus states, touch targets, empty states, loading skeletons, layout shift, dark mode, or responsive breakpoints. Also trigger when reviewing a new component, dashboard, form, or data table before shipping, or when the user shares a screenshot or a Figma frame and wants feedback. Covers React, Next.js, Tailwind, and shadcn/ui. Even if the user does not say "review", use this skill when they want UI quality checked.
 ---
 
-# cem-design-review
+# aot-design-review
 
 Review a UI and return a prioritized, fixable report. Inspect the tokens, read the component code, capture screenshots at real breakpoints, check the states nobody builds, then score and report. Apply fixes only after the user confirms.
 
@@ -153,7 +153,7 @@ Stop here in report-only mode.
 3. Use existing tokens and components. Introducing a new colour or a new spacing step is a token change requiring the user's agreement.
 4. Screenshot after each group of fixes at the same breakpoints and compare against the before shot.
 5. Re-run the checklist items touched to catch regressions.
-6. If an open PR exists, hand the commit and review cycle to `cem-pr-loop`.
+6. If an open PR exists, hand the commit and review cycle to `aot-pr-loop`.
 
 ## Hard rules
 

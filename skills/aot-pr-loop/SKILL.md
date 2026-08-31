@@ -1,9 +1,9 @@
 ---
-name: cem-pr-loop
-description: Address Octopus Review feedback on a GitHub pull request in a tight loop until the PR earns a 4+/5 quality score. Use this skill whenever the user asks to "run the pr loop", "run cem-pr-loop", "check my PR", "address Octopus feedback", "fix the review findings", "respond to review comments", "loop until 4/5", "get the PR to passing", or anytime there is an open PR that needs Octopus Review findings worked through iteratively. Also use when the user references review threads, finding severities (🔴🟠🟡🔵), or wants to react to and resolve Octopus comments. The skill drives gh CLI interactions, fix application, reactions, thread replies, and re-review notification.
+name: aot-pr-loop
+description: Address Octopus Review feedback on a GitHub pull request in a tight loop until the PR earns a 4+/5 quality score. Use this skill whenever the user asks to "run the pr loop", "run aot-pr-loop", "check my PR", "address Octopus feedback", "fix the review findings", "respond to review comments", "loop until 4/5", "get the PR to passing", or anytime there is an open PR that needs Octopus Review findings worked through iteratively. Also use when the user references review threads, finding severities (🔴🟠🟡🔵), or wants to react to and resolve Octopus comments. The skill drives gh CLI interactions, fix application, reactions, thread replies, and re-review notification.
 ---
 
-# cem-pr-loop
+# aot-pr-loop
 
 Drive a GitHub PR through Octopus Review feedback to a 4+/5 score. Read the open PR for the current branch, parse every Octopus finding, apply the valid fixes, push, react to and reply to threads, then ping Octopus for re-review. Repeat until the quality gate passes.
 

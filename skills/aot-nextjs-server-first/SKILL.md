@@ -1,9 +1,9 @@
 ---
-name: cem-nextjs-server-first
-description: Audit and refactor a Next.js app so data fetching happens on the server, backend credentials never reach the browser, and client-side fetch waterfalls stop causing UI flicker. Use this skill whenever the user asks to "make requests server side", "hide the API payload", "proxy API calls", "stop the UI flickering", "remove client-side fetching", "move this to RSC", "add a BFF", "run cem-nextjs-server-first", or complains about loading spinners, layout shift, waterfalls, double renders, or a backend URL and token visible in DevTools or the JS bundle. Also trigger when reviewing NEXT_PUBLIC_ environment variables, useEffect fetch calls, route handlers, server actions, App Router data flow, TanStack Query setup, caching and revalidation strategy, or multi-tenant scoping in a Next.js frontend. Even if the user does not say "audit", use this skill when they want Next.js data access reviewed or moved behind the server.
+name: aot-nextjs-server-first
+description: Audit and refactor a Next.js app so data fetching happens on the server, backend credentials never reach the browser, and client-side fetch waterfalls stop causing UI flicker. Use this skill whenever the user asks to "make requests server side", "hide the API payload", "proxy API calls", "stop the UI flickering", "remove client-side fetching", "move this to RSC", "add a BFF", "run aot-nextjs-server-first", or complains about loading spinners, layout shift, waterfalls, double renders, or a backend URL and token visible in DevTools or the JS bundle. Also trigger when reviewing NEXT_PUBLIC_ environment variables, useEffect fetch calls, route handlers, server actions, App Router data flow, TanStack Query setup, caching and revalidation strategy, or multi-tenant scoping in a Next.js frontend. Even if the user does not say "audit", use this skill when they want Next.js data access reviewed or moved behind the server.
 ---
 
-# cem-nextjs-server-first
+# aot-nextjs-server-first
 
 Move a Next.js app to a server-first data model. Find every browser-originated call to the backend, route reads through React Server Components, route interactive traffic through a thin BFF layer, keep credentials server side, and remove the fetch waterfalls that cause flicker. Report first. Refactor only after the user confirms.
 
@@ -169,7 +169,7 @@ Migrate one route at a time, top of the plan first. Never a whole-app rewrite in
 4. Add BFF handlers only for genuinely interactive reads. Session in, DTO out, tenant scope in the query.
 5. Verify: rebuild, grep `.next/static` for the backend host and token, load the route with JS throttled and confirm no post-hydration content swap.
 6. Screenshot before and after if a browser is available. Flicker claims need evidence.
-7. If an open PR exists, hand the commit and review cycle to `cem-pr-loop`.
+7. If an open PR exists, hand the commit and review cycle to `aot-pr-loop`.
 
 ## Hard rules
 

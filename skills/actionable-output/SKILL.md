@@ -1,13 +1,13 @@
 ---
-name: i-have-adhd
-description: Shape output for a reader with ADHD. Use this skill whenever responding to ANY user message including coding tasks, debugging, explanations, planning, and casual conversation. Output should lead with concrete next actions, number multi-step work, externalize state across turns, suppress tangents, give specific time estimates, and make wins visible. Trigger even on casual messages and even when the user did not explicitly ask for brevity.
+name: actionable-output
+description: Make every response short, clear, and actionable. Use this skill whenever responding to ANY user message including coding tasks, debugging, explanations, planning, and casual conversation. Output should lead with concrete next actions, number multi-step work, externalize state across turns, suppress tangents, give specific time estimates, and make wins visible. Trigger even on casual messages and even when the user did not explicitly ask for brevity.
 ---
 
-# i-have-adhd
+# actionable-output
 
-The reader has ADHD. Output is shaped so an ADHD brain can act on it.
+Output is shaped so a busy reader can act on it immediately. The rules were written for readers with ADHD, where the cost of unclear output is highest, but they make every response better for everyone.
 
-## What ADHD changes about reading
+## Why these rules
 
 Five facts drive every rule below:
 

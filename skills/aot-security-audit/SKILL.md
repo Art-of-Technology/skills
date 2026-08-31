@@ -1,9 +1,9 @@
 ---
-name: cem-security-audit
-description: Run a security audit on a TypeScript/Node.js or C#/ASP.NET Core codebase and produce a prioritized findings report with concrete fixes. Use this skill whenever the user asks to "run a security audit", "security review", "audit my code", "check for vulnerabilities", "review this for security", "pentest my app", "run cem-security-audit", or mentions OWASP, IDOR, broken access control, XSS, CSRF, SSRF, SQL injection, secrets leaking, mass assignment, or insecure file upload. Also trigger when reviewing authentication, authorization, multi-tenant data isolation, JWT handling, payment or PSP integration security, webhook handling, or dependency vulnerabilities before shipping. Covers Express, Fastify, NestJS, Next.js, Prisma, ASP.NET Core, EF Core, and Dapper. Even if the user does not say the word "audit", use this skill when they want code checked for security issues.
+name: aot-security-audit
+description: Run a security audit on a TypeScript/Node.js or C#/ASP.NET Core codebase and produce a prioritized findings report with concrete fixes. Use this skill whenever the user asks to "run a security audit", "security review", "audit my code", "check for vulnerabilities", "review this for security", "pentest my app", "run aot-security-audit", or mentions OWASP, IDOR, broken access control, XSS, CSRF, SSRF, SQL injection, secrets leaking, mass assignment, or insecure file upload. Also trigger when reviewing authentication, authorization, multi-tenant data isolation, JWT handling, payment or PSP integration security, webhook handling, or dependency vulnerabilities before shipping. Covers Express, Fastify, NestJS, Next.js, Prisma, ASP.NET Core, EF Core, and Dapper. Even if the user does not say the word "audit", use this skill when they want code checked for security issues.
 ---
 
-# cem-security-audit
+# aot-security-audit
 
 Audit a web codebase for security defects and return a prioritized, fixable report. Detect the stack, run the scanners, review the code against a focused checklist, triage by severity, then report. Apply fixes only after the user confirms.
 
@@ -27,7 +27,7 @@ Determine three things from context. Confirm only what you cannot infer.
 2. Mode. Report-only, or report then fix. Default to report-only. Never commit changes without explicit confirmation.
 3. Depth. Fast (scanners plus high-severity manual review) or full (every checklist item). Default to full for money or PII handling code, fast otherwise.
 
-If the user has an open PR and wants fixes applied, hand the fix phase to `cem-pr-loop` rather than committing directly here.
+If the user has an open PR and wants fixes applied, hand the fix phase to `aot-pr-loop` rather than committing directly here.
 
 ## Step 1: Detect the stack
 
@@ -164,7 +164,7 @@ Present the report. Stop here in report-only mode.
 1. Show the findings table and proposed action per row. Wait for confirmation.
 2. Apply the smallest change that closes each finding. No unrelated refactors.
 3. Re-run the relevant scanner to confirm the fix and check for regressions.
-4. If an open PR exists, switch to `cem-pr-loop` to commit, respond to review threads, and drive the quality gate. Otherwise commit per the user's normal flow with a message listing each fix.
+4. If an open PR exists, switch to `aot-pr-loop` to commit, respond to review threads, and drive the quality gate. Otherwise commit per the user's normal flow with a message listing each fix.
 
 ## Severity drives action, not blind application
 

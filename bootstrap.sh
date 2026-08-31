@@ -38,10 +38,10 @@ if git diff --cached --quiet; then
 else
   git commit -m "feat: initial skill library
 
-- cem-pr-loop: Octopus Review PR loop to 4+/5
-- cem-security-audit: OWASP audit for TS/Node and ASP.NET Core
-- cem-nextjs-server-first: server-side data fetching refactor
-- cem-design-review: UI and accessibility review
+- aot-pr-loop: Octopus Review PR loop to 4+/5
+- aot-security-audit: OWASP audit for TS/Node and ASP.NET Core
+- aot-nextjs-server-first: server-side data fetching refactor
+- aot-design-review: UI and accessibility review
 - blog-content-agent: codebase-aware blog content pipeline
 "
 fi
