@@ -1,0 +1,3 @@
+interface:
+  display_name: "AOT Ship Loop"
+  short_description: "Gate a change through PR, review, CI, and release"
