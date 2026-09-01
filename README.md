@@ -11,6 +11,7 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 | aot-security-audit | OWASP-aligned audit for TS/Node and C#/ASP.NET Core |
 | aot-nextjs-server-first | Move Next.js data fetching server-side, BFF, RSC |
 | aot-design-review | UI review: hierarchy, spacing, a11y, WCAG |
+| aot-release-lifecycle | Trunk-based release flow: main→staging, rc tag→UAT, release tag→prod, promote-not-rebuild |
 | blog-content-agent | Research, write, and publish codebase-aware blog posts |
 | actionable-output | Short, clear, actionable responses: next action first, numbered steps, no tangents |
 | humanizer | Strip AI-writing tells from customer-facing copy only: email, web UI strings, marketing, notifications |
