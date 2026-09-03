@@ -103,7 +103,7 @@ UAT → production (before tagging release):
 
 ## CI/CD wiring
 
-Read `references/github-actions.md` for complete GitHub Actions workflow examples covering the three triggers (push to main, `v*-rc.*` tags, `v*` release tags), artifact promotion without rebuild, and environment protection rules. Use it whenever setting up or reviewing pipelines for this lifecycle.
+Read `references/github-actions.md` for complete GitHub Actions workflow examples covering the three triggers (push to main, `v*-rc.*` tags, `v*` release tags), artifact promotion without rebuild, and environment protection rules. Use it whenever setting up or reviewing pipelines for this lifecycle. For cutting wasted runs on the repo's CI workflows and migrating onto the org's reusable workflows, use `aot-ci-workflows`.
 
 ## Anti-patterns to reject
 
