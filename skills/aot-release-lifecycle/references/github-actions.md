@@ -2,6 +2,8 @@
 
 Three workflows, three triggers. Docker image is built once per commit and promoted by retagging.
 
+Every workflow carries a `concurrency` block keyed on workflow and ref. Branch-triggered workflows also skip docs and image changes via `paths-ignore`. PR-triggered CI workflows in the same repo follow `aot-ci-workflows` stage 1 (PR event types plus a draft guard).
+
 ## 1. Staging: push to main
 
 ```yaml
@@ -10,10 +12,11 @@ name: staging
 on:
   push:
     branches: [main]
+    paths-ignore: ['**.md', 'docs/**', '**.png', '**.jpg', '**.jpeg', '**.gif', '**.svg', '**.webp']
 
 concurrency:
-  group: staging
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true   # set false if deploy.sh is not safe to interrupt
 
 jobs:
   build-and-deploy:
@@ -43,7 +46,11 @@ jobs:
 name: uat
 on:
   push:
-    tags: ['v*.*.*-rc.*']
+    tags: ['v*.*.*-rc.*']   # no paths-ignore: path filters do not apply to tag pushes
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   promote-to-uat:
@@ -76,6 +83,10 @@ name: production
 on:
   push:
     tags: ['v*.*.*']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   guard:
@@ -130,6 +141,10 @@ Configure in repo Settings → Environments:
 - `staging`: no reviewers, main branch only.
 - `uat`: deployment branches/tags restricted to `v*-rc.*` tags.
 - `production`: required reviewers (at least one), tags restricted to `v*` non-rc, optional wait timer.
+
+## Merge queue
+
+When the merge queue is enabled on `main`, PR CI workflows must also trigger on `merge_group:` or required checks never run for queued PRs. The queue merges with a squash commit pushed to `main`, so the staging workflow above fires unchanged. Confirm this on the first queued merge.
 
 ## Branch protection on main
 

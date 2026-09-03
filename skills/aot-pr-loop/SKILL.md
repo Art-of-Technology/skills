@@ -158,7 +158,7 @@ Only when the quality gate (4+/5) is met:
 
 ```bash
 gh pr merge <number> --merge --delete-branch
-git checkout master
+git checkout main
 git pull
 git branch -d <branch-name>
 ```
