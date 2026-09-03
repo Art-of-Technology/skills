@@ -8,6 +8,7 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 |-------|---------|
 | aot-ship-loop | Gate a change through no-mistakes, Octopus Review, CI, and release verification |
 | aot-pr-loop | Drive a PR through Octopus Review feedback until 4+/5 |
+| aot-skill-audit | Vet a third-party agent skill before installing it: prose injection, code exfiltration, persistence, verdict with evidence |
 | aot-security-audit | OWASP-aligned audit for TS/Node and C#/ASP.NET Core |
 | aot-nextjs-server-first | Move Next.js data fetching server-side, BFF, RSC |
 | aot-design-review | UI review: hierarchy, spacing, a11y, WCAG |
