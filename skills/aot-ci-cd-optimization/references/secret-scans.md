@@ -21,19 +21,27 @@ and handle initial pushes or missing bases explicitly. Do not fall back to an
 empty range and report success. Commit-range scanning also catches secrets
 introduced and then removed within the selected history.
 
-The Gitleaks CLI supports commit ranges through `git --log-opts`. Resolve the
-intended base/head from trusted event metadata, then validate before scanning:
+The Gitleaks CLI supports commit ranges through `git --log-opts`. For a PR,
+resolve the base-branch tip and PR head from trusted event metadata, then derive
+their merge base. The base branch may have advanced since the PR branched off;
+its current tip need not be an ancestor of the PR head.
 
 ```bash
 set -euo pipefail
 [[ "${BASE_SHA:-}" =~ ^[0-9a-f]{40}$ && "${HEAD_SHA:-}" =~ ^[0-9a-f]{40}$ ]] || exit 2
 git cat-file -e "${BASE_SHA}^{commit}"
 git cat-file -e "${HEAD_SHA}^{commit}"
-git merge-base --is-ancestor "$BASE_SHA" "$HEAD_SHA"
-commit_count=$(git rev-list --count "${BASE_SHA}..${HEAD_SHA}")
+SCAN_BASE_SHA=$(git merge-base "$BASE_SHA" "$HEAD_SHA")
+[[ "$SCAN_BASE_SHA" =~ ^[0-9a-f]{40}$ ]] || exit 2
+commit_count=$(git rev-list --count "${SCAN_BASE_SHA}..${HEAD_SHA}")
 [[ "$commit_count" -gt 0 ]] || exit 2
-gitleaks git --redact=100 --no-banner --log-opts="${BASE_SHA}..${HEAD_SHA}" .
+gitleaks git --redact=100 --no-banner --log-opts="${SCAN_BASE_SHA}..${HEAD_SHA}" .
 ```
+
+Record both the supplied base-branch tip and the derived scan base with the
+verdict. For a main push, use the verified previous protected revision directly
+and require it to be an ancestor of the new head; unexpected main-history
+divergence needs explicit handling rather than the PR merge-base calculation.
 
 Do not rely on the scanner exit code to validate history: some versions can
 report success after Git rejects an invalid range. The explicit checks above
@@ -64,6 +72,8 @@ history rewriting are separate actions subject to existing authorization.
 
 - A clean range passes, and a fake secret added in the range fails.
 - A fake secret added then removed inside that range is still detected.
+- An advanced PR base branch accepts clean changes and still detects a secret
+  on the PR branch; histories with no common ancestor fail.
 - Missing/invalid bases and scanner execution failures fail closed.
 - A new head or changed scan configuration cannot reuse the previous verdict.
 - Logs and retained reports reveal no secret values.
