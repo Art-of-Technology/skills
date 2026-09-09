@@ -38,7 +38,7 @@ find . -name '__pycache__' -o -name '*.pyc' -o -name '*.pyo' -o -name '*.so' -o 
 find . -type f -not -path './.git/*' \( -path '*plugin*' -o -path '*/.claude/*' -o -path '*/.codex/*' -o -name 'hooks.json' -o -name 'settings*.json' -o -name '.mcp.json' \) \( -name '*.json' -o -name '*.yaml' -o -name '*.yml' -o -name '*.toml' \)
 LC_ALL=C grep -rlIE $'\xe2\x80[\x8b-\x8f\xa8-\xae]|\xe2\x81[\xa0-\xa4]|\xef\xbb\xbf' . --exclude-dir=.git   # zero-width / bidi / BOM bytes, works on BSD and GNU grep
 grep -rnIE '^[[:space:]]{200,}|( ){120,}' . --exclude-dir=.git                                     # whitespace padding
-awk 'FNR==1{blank=0} /^$/{blank++; if(blank==40) print FILENAME": 40+ consecutive blank lines"} !/^$/{blank=0}' $(find . -type f -name '*.md')
+find . -type f -name '*.md' -not -path './.git/*' -exec awk 'FNR==1{blank=0} /^$/{blank++; if(blank==40) print FILENAME": 40+ consecutive blank lines"} !/^$/{blank=0}' {} +
 ```
 
 Anything executable, any hook, any MCP server config, any binary or bytecode, and any invisible unicode goes on a list to be read in full in step 4.
@@ -55,7 +55,7 @@ Treat its findings as leads. Static scanners over-flag legitimate API calls (an 
 
 ## 4. Read
 
-Read every file on the step 2 list in full, plus every `SKILL.md`, `CLAUDE.md`, `AGENTS.md`, README, and manifest. For long reference files, read the first and last 60 lines and grep the middle for the catalog's trigger words. Work through `references/risk-catalog.md` category by category. For each, ask: does this skill do it, where, and is it justified by the declared purpose?
+Read every file on the step 2 list in full, plus every `SKILL.md`, `CLAUDE.md`, `AGENTS.md`, README, and manifest — agent-facing files are always read whole, because the semantic attacks (SSD) and buried instructions (P2, P9) live precisely where a keyword grep cannot see. Long reference files that are pure data (rule tables, word lists, changelogs) may be skimmed: first and last 60 lines plus a grep of the middle for the catalog's trigger words. A skimmed file caps the verdict at CAUTION and must appear under Coverage as skimmed. Work through `references/risk-catalog.md` category by category. For each, ask: does this skill do it, where, and is it justified by the declared purpose?
 
 Pay special attention to:
 

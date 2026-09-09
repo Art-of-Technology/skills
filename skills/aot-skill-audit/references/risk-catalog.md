@@ -6,7 +6,7 @@ Severity is a default. Lower it one step when the behaviour is clearly required 
 
 ## Prompt injection (P)
 
-The skill's text tries to steer the agent rather than help the user. Any confirmed finding here is a DO NOT INSTALL on its own.
+The skill's text tries to steer the agent rather than help the user. A confirmed P1, P2, P3, or P5 finding (or an SSD semantic variant) is a DO NOT INSTALL on its own. P4 is the exception: disclosed vendor promotion is CAUTION material, and only undisclosed steering fails the skill. P9 follows the normal severity rules — as HIGH, it fails unless somehow justified by the stated purpose, which whitespace padding never is.
 
 | Rule | Severity | Look for |
 |------|----------|----------|
