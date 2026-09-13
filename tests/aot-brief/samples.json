@@ -1,0 +1,20 @@
+[
+  {
+    "name": "bug_fix",
+    "task": "Synthetic reporting task only. Report these supplied completed results: fix null profile handling in src/profile.ts so missing profiles return HTTP 404; add regression coverage in tests/profile.test.ts; all 12 profile tests passed; lint passed; next action is reviewing the diff. Do not claim actual execution outside this fictional scenario.",
+    "baseline_reply": "The null profile bug has been fixed. The implementation change is in src/profile.ts, where missing profiles now return HTTP 404. Regression coverage has also been added in tests/profile.test.ts to cover the missing-profile behavior. Validation completed successfully: all 12 profile tests passed, and lint passed as well. The next step is to review the diff.",
+    "reply": "DONE: Return HTTP 404 for missing profiles in src/profile.ts.\nDONE: Add missing-profile regression coverage in tests/profile.test.ts.\nDONE: Pass all 12 profile tests.\nDONE: Pass lint.\nNEXT: Review the diff."
+  },
+  {
+    "name": "three_file_refactor",
+    "task": "Synthetic reporting task only. Report these supplied completed results: extract normalization into src/normalize.ts; update src/import.ts to use shared normalization; update src/export.ts to use shared normalization; exactly these three files changed; behavior is preserved; all 24 tests passed; typechecking passed; no next action remains. Do not claim actual execution outside this fictional scenario.",
+    "baseline_reply": "The normalization refactor is complete, and exactly three files changed. Shared normalization has been extracted into src/normalize.ts. The import flow in src/import.ts now uses that shared normalization, and the export flow in src/export.ts uses it too. The existing behavior has been preserved through the refactor. For validation, all 24 tests passed, and typechecking passed. There are no remaining next actions.",
+    "reply": "DONE: Extract normalization into src/normalize.ts.\nDONE: Use shared normalization in src/import.ts.\nDONE: Use shared normalization in src/export.ts.\nDONE: Change exactly three files while preserving behavior.\nDONE: Pass all 24 tests and typechecking.\nNEXT: none"
+  },
+  {
+    "name": "decision",
+    "task": "Synthetic decision reporting task. Ask the user to select a cache strategy. Offer memory caching as the recommended default because it needs no service, or Redis because it shares cache across instances. Ask exactly one final question and stop. Do not select or implement a strategy.",
+    "baseline_reply": "There are two cache strategies to choose from before implementation. My recommended default is memory caching, because it requires no additional service. The alternative is Redis, which supports sharing the cache across instances. Please choose one of these two options so the cache strategy can be settled: which strategy do you prefer?",
+    "reply": "DECIDE: 1. Choose memory caching (default); it requires no service.\nDECIDE: 2. Choose Redis; it shares cache across instances.\nDECIDE: Which strategy do you prefer?"
+  }
+]
