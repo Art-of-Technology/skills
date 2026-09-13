@@ -16,6 +16,7 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 | aot-release-lifecycle | Trunk-based release flow: main→staging, rc tag→UAT, release tag→prod, promote-not-rebuild |
 | aot-ci-cd-optimization | Measure and speed up CI/CD with parallel checks, cancellation, efficient secret scans and tested-artifact reuse |
 | blog-content-agent | Research, write, and publish codebase-aware blog posts |
+| aot-brief | Compact replies with DONE, NEXT, BLOCKED, DECIDE; invoke /aot-brief |
 | actionable-output | Short, clear, actionable responses: next action first, numbered steps, no tangents |
 | humanizer | Strip AI-writing tells from customer-facing copy only: email, web UI strings, marketing, notifications |
 | skill-creator | Create, improve, and eval agent skills (Anthropic official, Apache-2.0) |
@@ -61,3 +62,11 @@ One skill per PR. Keep SKILL.md under 200 lines. Push detail into references/.
 ## License
 
 MIT. See [LICENSE](LICENSE). Vendored skills keep their upstream licenses: `humanizer` from [blader/humanizer](https://github.com/blader/humanizer) (MIT), `skill-creator` and `frontend-design` from [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) (Apache-2.0, see the `LICENSE.txt` in each folder).
+
+## Compact replies
+
+Enable `aot-brief` with `/aot-brief` in Claude Code, or reference
+`skills/aot-brief/SKILL.md` in Codex prompt instructions. For all replies,
+add that reference to your standing agent instructions. Its output shape
+takes precedence over `actionable-output` when both are enabled.
+No hooks, proxy rewriting, or reasoning-effort changes are required.
