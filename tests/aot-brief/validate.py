@@ -10,40 +10,52 @@ import re
 import tiktoken
 import yaml
 
+def require(condition, message):
+    """Fail with actionable context, including when Python uses -O."""
+    if not condition:
+        raise SystemExit(f'FAIL: {message}')
+
+
 ROOT = Path(__file__).resolve().parents[2]
 skill = (ROOT / 'skills/aot-brief/SKILL.md').read_text()
 front = yaml.safe_load(skill.split('---', 2)[1])
-assert front['name'] == 'aot-brief'
-assert front['metadata']['version'] == '0.2.0'
-assert len(front['description']) < 1024
-assert len(skill.splitlines()) < 120
-assert '\u2014' not in skill
+require(front['name'] == 'aot-brief', 'SKILL.md: name must be aot-brief')
+require(front['metadata']['version'] == '0.2.0', 'SKILL.md: version must be 0.2.0')
+require(len(front['description']) < 1024, 'SKILL.md: description must be under 1024 characters')
+require(len(skill.splitlines()) < 120, 'SKILL.md: must contain fewer than 120 lines')
+require('\u2014' not in skill, 'SKILL.md: em dashes are forbidden')
 for trigger in ('brief', 'terse', 'short answer', 'status', 'what changed'):
-    assert trigger in front['description']
+    require(trigger in front['description'], f'SKILL.md: missing trigger {trigger!r}')
 encoder = tiktoken.get_encoding('cl100k_base')
 samples = json.loads((Path(__file__).parent / 'samples.json').read_text())
-assert len(samples) == 3
+require(len(samples) == 3, 'samples.json: expected exactly three samples')
 order = ['DONE', 'NEXT', 'BLOCKED', 'DECIDE']
 before_total = after_total = 0
-for sample in samples:
+for index, sample in enumerate(samples, 1):
+    context = f'samples.json sample {index} ({sample.get("name", "unnamed")})'
     reply = sample['reply']
     lines = reply.splitlines()
-    assert 0 < len(lines) <= 8
-    assert all(len(line.split()) <= 12 for line in lines)
+    require(0 < len(lines) <= 8, f'{context}: expected 1-8 reply lines; got {len(lines)}')
+    for line_number, line in enumerate(lines, 1):
+        require(len(line.split()) <= 12, f'{context}: line {line_number} exceeds 12 words')
     labels = [line.partition(':')[0] for line in lines]
-    assert all(label in order for label in labels)
-    assert labels == sorted(labels, key=order.index)
+    require(all(label in order for label in labels), f'{context}: unknown block label')
+    require(labels == sorted(labels, key=order.index), f'{context}: blocks must follow {order}')
     decisions = [line for line in lines if line.startswith('DECIDE:')]
     if decisions:
         options = [line for line in decisions if re.match(r'DECIDE: \d+[.)] ', line)]
-        assert 1 <= len(options) <= 3
-        assert sum('(default)' in option for option in options) == 1
-        assert sum('?' in line for line in lines) == 1
-        assert lines[-1].startswith('DECIDE:') and lines[-1].endswith('?')
+        require(1 <= len(options) <= 3, f'{context}: expected 1-3 numbered decision options')
+        require(sum('(default)' in option for option in options) == 1,
+                f'{context}: mark exactly one option (default)')
+        require(sum(line.count('?') for line in lines) == 1,
+                f'{context}: expected exactly one decision question')
+        require(lines[-1].startswith('DECIDE:') and lines[-1].endswith('?'),
+                f'{context}: end with a DECIDE question')
     before = len(encoder.encode(sample['baseline_reply']))
     after = len(encoder.encode(reply))
+    require(before > 0, f'{context}: baseline_reply must not be empty')
     saving = 1 - after / before
-    assert saving >= 0.30, (sample['task'], saving)
+    require(saving >= 0.30, f'{context}: token reduction {saving:.1%} is below 30%')
     before_total += before
     after_total += after
     print(f'{len(lines)} lines; {before} -> {after} tokens; {saving:.1%} fewer')

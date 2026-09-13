@@ -4,6 +4,7 @@ Run from the repository root:
 
 ```sh
 uv run --with pyyaml --with tiktoken python tests/aot-brief/validate.py
+uv run --with pyyaml --with tiktoken python tests/aot-brief/test_validation.py
 ```
 
 An independent agent read the skill and generated three synthetic reporting
@@ -29,3 +30,7 @@ replies and the deployed model's tokenizer. Reasoning tokens are excluded.
 Assessment: stable labels and short lines make results easier to scan.
 Rigid caps can displace useful explanations into files and repeat label tokens.
 The exceptions and explicit uncertainty rule preserve important context.
+
+Validation uses explicit failures that remain active under `python -O`.
+The rejection test checks excess lines, empty baselines, and unknown labels
+in normal and optimized modes using temporary copies of the fixtures.
