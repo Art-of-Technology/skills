@@ -53,8 +53,11 @@ Use caveman-lite compression without sacrificing readable sentences.
 
 These override the cap when necessary.
 
-- Destructive action: warn first in one line; wait for explicit yes.
-- Surprising side effect: add one extra line starting `Note:`.
+- Destructive action: send one standalone `Warning:` line; wait for explicit yes.
+  State the destructive effect and request yes before proceeding.
+- Surprising side effect: allow one `Note:` line beyond eight regular lines.
+  Keep twelve words per line for notes and warnings.
+  Put notes before the final DECIDE question; never continue after it.
 - Code, commits, and PR descriptions are written normally; caps do not apply.
   Keep surrounding chat compressed. Never paste full files.
 - Higher-priority instructions and explicitly requested deliverables take precedence.

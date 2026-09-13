@@ -35,10 +35,19 @@ for index, sample in enumerate(samples, 1):
     context = f'samples.json sample {index} ({sample.get("name", "unnamed")})'
     reply = sample['reply']
     lines = reply.splitlines()
-    require(0 < len(lines) <= 8, f'{context}: expected 1-8 reply lines; got {len(lines)}')
+    notes = [line for line in lines if line.startswith('Note:')]
+    warnings = [line for line in lines if line.startswith('Warning:')]
+    require(len(notes) <= 1, f'{context}: allow at most one Note: line')
+    if warnings:
+        require(len(lines) == 1, f'{context}: a Warning: must stand alone; wait for yes')
+    else:
+        regular_lines = [line for line in lines if not line.startswith('Note:')]
+        require(0 < len(regular_lines) <= 8,
+                f'{context}: expected 1-8 reply lines excluding one optional Note:')
     for line_number, line in enumerate(lines, 1):
         require(len(line.split()) <= 12, f'{context}: line {line_number} exceeds 12 words')
-    labels = [line.partition(':')[0] for line in lines]
+    labels = [line.partition(':')[0] for line in lines
+              if not line.startswith(('Note:', 'Warning:'))]
     require(all(label in order for label in labels), f'{context}: unknown block label')
     require(labels == sorted(labels, key=order.index), f'{context}: blocks must follow {order}')
     decisions = [line for line in lines if line.startswith('DECIDE:')]
