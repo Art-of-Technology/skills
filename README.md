@@ -6,6 +6,8 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 
 | Skill | Purpose |
 |-------|---------|
+| aot-rundown | Concise whole-project status: backlog, in progress, completed, waiting for release, recently released |
+| aot-rundown-current | Concise current-session recap: progress, unfinished work, blockers, next action |
 | aot-ship-loop | Gate a change through no-mistakes, Octopus Review, CI, and release verification |
 | aot-pr-loop | Drive a PR through Octopus Review feedback until 4+/5 |
 | aot-skill-audit | Vet a third-party agent skill before installing it: prose injection, code exfiltration, persistence, verdict with evidence |
@@ -37,7 +39,23 @@ Update all skills:
 cd ~/art-of-technology-skills && git pull
 ```
 
+Pulling updates existing linked skills. For newly added skills, also link
+their folders into `~/.claude/skills/`; skip links that already exist.
+
 ## Use with Codex
+
+For direct `$skill-name` invocation, link the desired skill folders into
+`~/.agents/skills/`. For the rundown skills, after cloning as above:
+
+```bash
+mkdir -p ~/.agents/skills
+ln -s ~/art-of-technology-skills/skills/aot-brief ~/.agents/skills/
+ln -s ~/art-of-technology-skills/skills/aot-rundown ~/.agents/skills/
+ln -s ~/art-of-technology-skills/skills/aot-rundown-current ~/.agents/skills/
+```
+
+Skip links that already exist. Pulling updates linked skills; newly added
+skills need new links. If a skill does not appear, restart Codex.
 
 Point AGENTS.md at the skill you need, or paste the SKILL.md content as the task prompt. Example AGENTS.md line:
 
@@ -70,3 +88,9 @@ Enable `aot-brief` with `/aot-brief` in Claude Code, or reference
 add that reference to your standing agent instructions. Its output shape
 takes precedence over `actionable-output` when both are enabled.
 No hooks, proxy rewriting, or reasoning-effort changes are required.
+
+For a one-off recap, use `/aot-rundown-current` for the current session or
+`/aot-rundown` for the whole project in Claude Code. In Codex, invoke
+`$aot-rundown-current` or `$aot-rundown`. Both reuse `aot-brief` for that
+response only, keeping the existing session style afterwards. Install
+`aot-brief` alongside both rundown skills.
