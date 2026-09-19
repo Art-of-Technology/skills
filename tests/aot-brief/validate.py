@@ -47,7 +47,8 @@ for index, sample in enumerate(samples, 1):
     for line_number, line in enumerate(lines, 1):
         require(len(line.split()) <= 12, f'{context}: line {line_number} exceeds 12 words')
     labels = [line.partition(':')[0] for line in lines
-              if not line.startswith(('Note:', 'Warning:'))]
+              if line.strip() and not line.startswith(('Note:', 'Warning:'))]
+    require(labels or warnings, f'{context}: expected at least one block label')
     require(all(label in order for label in labels), f'{context}: unknown block label')
     require(labels == sorted(labels, key=order.index), f'{context}: blocks must follow {order}')
     decisions = [line for line in lines if line.startswith('DECIDE:')]

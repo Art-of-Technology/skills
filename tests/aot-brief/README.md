@@ -32,12 +32,13 @@ Rigid caps can displace useful explanations into files and repeat label tokens.
 The exceptions and explicit uncertainty rule preserve important context.
 
 Validation uses explicit failures that remain active under `python -O`.
-The boundary test runs 13 cases in normal and optimized modes using temporary
+The boundary test runs 17 cases in normal and optimized modes using temporary
 copies. It accepts eight regular lines plus one note, notes before a final
-decision question, and standalone warnings. It rejects duplicate notes,
-excess regular lines, overlong notes or warnings, notes without regular blocks,
-notes after a final question, and warnings followed by actions. Existing
-empty-baseline and unknown-label rejection checks remain covered.
+decision question, standalone warnings, and blank or whitespace-only separators.
+Blank lines count toward the eight-line cap; blank-only replies are rejected.
+It rejects duplicate notes, excess regular lines, overlong notes or warnings,
+notes without regular blocks, notes after a final question, and warnings followed
+by actions. Existing empty-baseline and unknown-label rejection checks remain covered.
 
 Notes and warnings retain the twelve-word limit. Human review still checks
 whether a note identifies a surprising effect and a warning describes the

@@ -23,6 +23,11 @@ class ValidationBoundaries(unittest.TestCase):
              'DECIDE: 1. Keep backups (default).\n' + note +
              '\nDECIDE: Which option do you prefer?', None),
             ('standalone_warning', 'reply', warning, None),
+            ('blank_separator', 'reply', 'DONE: Pass tests.\n\nNEXT: Ship fixes.', None),
+            ('whitespace_separator', 'reply', 'DONE: Pass tests.\n \t \nNEXT: Ship fixes.', None),
+            ('blank_lines_over_limit', 'reply', '\n\n'.join(['DONE: Pass tests.'] * 5),
+             'expected 1-8 reply lines'),
+            ('blank_only', 'reply', '\n \t \n', 'expected at least one block label'),
             ('two_notes', 'reply', regular + '\n' + note + '\n' + note,
              'allow at most one Note: line'),
             ('ten_lines', 'reply', regular + '\nDONE: Pass lint.\n' + note,
