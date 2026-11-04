@@ -46,6 +46,10 @@ While a run is active:
 - answer gates through the pipeline's printed `axi respond` command; and
 - accept pipeline-authored fix commits, then let it rerun the affected gates.
 
+An active CI monitor may be watching a PR after its checks have finished; distinguish that from a running build or validation agent using status, logs, and the current PR checks. Monitoring does not block independent work on a separate branch or worktree. It does not release custody of the monitored branch, and a blank PID or quiet log does not prove the run has stopped. Do not wait on the monitor when other authorized work can proceed.
+
+To reduce repeated CI, collect related review fixes into one tested commit or push when practical, then validate the final PR head. Prefer path-filtered checks and cancellation of superseded PR runs when the repository supports them. Preserve required checks, release and deployment gates, and main-branch verification; never treat a pass on an earlier head as a pass on a later one.
+
 Do not treat a local test pass as completion. Continue through review, tests, documentation, lint, push, PR creation, and CI.
 
 ## 3. Run the Octopus PR loop
