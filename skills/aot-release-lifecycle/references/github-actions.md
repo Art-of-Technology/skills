@@ -1,10 +1,12 @@
-# GitHub Actions wiring for main → staging, rc tag → UAT, release tag → production
+# Example GitHub Actions wiring for optional staging, RC, and production
 
-Three workflows, three triggers. Docker image is built once per commit and promoted by retagging.
+These example workflows build an image once per commit and promote it by retagging; the staging workflow is optional.
 
 Every workflow carries a `concurrency` block keyed on workflow and ref. Branch-triggered workflows also skip docs and image changes via `paths-ignore`. PR-triggered CI workflows in the same repo follow `aot-ci-workflows` stage 1 (PR event types plus a draft guard).
 
-## 1. Staging: push to main
+## 1. Optional staging: push to main
+
+If staging is absent, publish the commit image with a build-only workflow or build it once on the RC tag before UAT; production still promotes that accepted image without rebuilding.
 
 ```yaml
 # .github/workflows/staging.yml
@@ -35,8 +37,6 @@ jobs:
       - name: Deploy to staging
         run: ./deploy.sh staging "ghcr.io/${{ github.repository }}:sha-${{ github.sha }}"
 
-      - name: Smoke test
-        run: curl -fsS --retry 10 --retry-delay 6 https://staging.example.com/health
 ```
 
 ## 2. UAT: rc tag
@@ -73,7 +73,7 @@ jobs:
         run: curl -fsS --retry 10 --retry-delay 6 https://uat.example.com/health
 ```
 
-The retag step assumes the staging workflow already built `sha-<commit>` when the commit merged to main. If the rc tag points to a commit never built (stabilization branch), add a fallback build step guarded by an image-exists check.
+The retag step requires a previously built `sha-<commit>` image. If none exists, build it once on the RC tag before the retag step; use the resulting accepted image for production.
 
 ## 3. Production: release tag
 
