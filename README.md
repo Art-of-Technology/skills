@@ -15,7 +15,7 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 | aot-nextjs-server-first | Move Next.js data fetching server-side, BFF, RSC |
 | aot-design-review | UI review: hierarchy, spacing, a11y, WCAG |
 | aot-ci-workflows | Stop wasted Actions runs (concurrency, paths-ignore, draft skip, merge_group), then adopt the org reusable workflows |
-| aot-release-lifecycle | Trunk-based release flow: main→staging, rc tag→UAT, release tag→prod, promote-not-rebuild |
+| aot-release-lifecycle | Trunk-based release flow: optional staging, rc tag→UAT, release tag→prod, promote-not-rebuild |
 | aot-ci-cd-optimization | Measure and speed up CI/CD with parallel checks, cancellation, efficient secret scans and tested-artifact reuse |
 | blog-content-agent | Research, write, and publish codebase-aware blog posts |
 | aot-brief | Compact replies with DONE, NEXT, BLOCKED, DECIDE; invoke /aot-brief |

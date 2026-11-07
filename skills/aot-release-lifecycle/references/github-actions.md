@@ -1,10 +1,10 @@
-# GitHub Actions wiring for main → staging, rc tag → UAT, release tag → production
+# Example GitHub Actions wiring for optional staging, RC, and production
 
 Three workflows, three triggers. Docker image is built once per commit and promoted by retagging.
 
 Every workflow carries a `concurrency` block keyed on workflow and ref. Branch-triggered workflows also skip docs and image changes via `paths-ignore`. PR-triggered CI workflows in the same repo follow `aot-ci-workflows` stage 1 (PR event types plus a draft guard).
 
-## 1. Staging: push to main
+## 1. Optional staging: push to main
 
 ```yaml
 # .github/workflows/staging.yml
@@ -35,8 +35,6 @@ jobs:
       - name: Deploy to staging
         run: ./deploy.sh staging "ghcr.io/${{ github.repository }}:sha-${{ github.sha }}"
 
-      - name: Smoke test
-        run: curl -fsS --retry 10 --retry-delay 6 https://staging.example.com/health
 ```
 
 ## 2. UAT: rc tag

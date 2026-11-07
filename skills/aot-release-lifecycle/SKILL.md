@@ -1,6 +1,6 @@
 ---
 name: aot-release-lifecycle
-description: Enforce the trunk-based release lifecycle across environments. main merges deploy to staging, vX.Y.Z-rc.N tags promote to UAT, vX.Y.Z tags release to production. Use this skill whenever the user asks to "cut a release", "promote to UAT", "tag an RC", "release to production", "prepare a release", "hotfix production", "roll back a release", "run aot-release-lifecycle", or mentions release candidates, semver tags, staging/UAT/production promotion, release branches, changelogs, or the release process. Also trigger when setting up CI/CD pipelines, GitHub Actions release workflows, environment promotion gates, or reviewing whether a branch or tag follows the release convention. Even if the user does not name the skill, use it for any question about how code moves from a branch to an environment.
+description: Enforce the trunk-based release lifecycle across environments. staging is optional, vX.Y.Z-rc.N tags promote to UAT, vX.Y.Z tags release to production. Use this skill whenever the user asks to "cut a release", "promote to UAT", "tag an RC", "release to production", "prepare a release", "hotfix production", "roll back a release", "run aot-release-lifecycle", or mentions release candidates, semver tags, staging/UAT/production promotion, release branches, changelogs, or the release process. Also trigger when setting up CI/CD pipelines, GitHub Actions release workflows, environment promotion gates, or reviewing whether a branch or tag follows the release convention. Even if the user does not name the skill, use it for any question about how code moves from a branch to an environment.
 ---
 
 # Release Lifecycle: main → staging → UAT → production
@@ -11,7 +11,7 @@ This skill defines how code moves through environments. Follow it exactly. Never
 
 | Environment | Trigger | Artifact | Purpose |
 |---|---|---|---|
-| staging | Merge to `main` | Build from `main` HEAD | Continuous integration testing, latest work |
+| staging (optional) | Merge to `main` | Build from `main` HEAD | Continuous integration testing, when configured |
 | UAT | Tag `vX.Y.Z-rc.N` | Build from the tagged commit | Business acceptance, stakeholder sign-off |
 | production | Tag `vX.Y.Z` | Same artifact as the approved RC | Live traffic |
 
@@ -22,7 +22,7 @@ Core rule: the production tag must point to the same commit as the last approved
 - `main` is the only long-lived branch. Protect it. Require PR review and green CI.
 - Feature branches: `feature/<short-name>` or `fix/<short-name>`, branched from `main`, merged back via PR. Squash merge. Delete after merge.
 - No `develop` branch. No long-lived `release/*` branches unless a release needs stabilization while `main` moves on (see Stabilization below).
-- Every merge to `main` auto-deploys to staging. If a change is not ready to be visible on staging, gate it behind a feature flag, not a branch.
+- If staging is configured, follow the repository’s deployment and feature-flag conventions. Staging deployment and smoke tests are not required release gates.
 
 ## Tag rules
 
@@ -43,7 +43,7 @@ git push origin v1.4.0-rc.1
 
 Work backwards from the production goal. Confirm each gate before the next step.
 
-1. Confirm `main` is green on staging. Check CI status and smoke tests.
+1. Confirm the target commit has passed the repository’s required CI checks.
 2. Update version metadata (package.json, .csproj, CHANGELOG) on `main` via PR.
 3. Tag the RC from `main`:
    ```bash
@@ -90,8 +90,8 @@ Only when a release needs hardening while `main` must keep taking new features:
 
 ## Gates checklist per promotion
 
-Staging → UAT (before tagging RC):
-- CI green on `main`, staging smoke tests pass
+Before tagging RC:
+- Required CI checks are green on the target commit
 - CHANGELOG updated, version bumped
 - No pending migrations that break N-1 compatibility
 
