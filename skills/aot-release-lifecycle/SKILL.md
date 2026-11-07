@@ -3,7 +3,7 @@ name: aot-release-lifecycle
 description: Enforce the trunk-based release lifecycle across environments. staging is optional, vX.Y.Z-rc.N tags promote to UAT, vX.Y.Z tags release to production. Use this skill whenever the user asks to "cut a release", "promote to UAT", "tag an RC", "release to production", "prepare a release", "hotfix production", "roll back a release", "run aot-release-lifecycle", or mentions release candidates, semver tags, staging/UAT/production promotion, release branches, changelogs, or the release process. Also trigger when setting up CI/CD pipelines, GitHub Actions release workflows, environment promotion gates, or reviewing whether a branch or tag follows the release convention. Even if the user does not name the skill, use it for any question about how code moves from a branch to an environment.
 ---
 
-# Release Lifecycle: main → staging → UAT → production
+# Release Lifecycle: main → RC → production
 
 This skill defines how code moves through environments. Follow it exactly. Never deploy to an environment through any other path.
 
@@ -68,7 +68,7 @@ For a production defect when `main` has moved ahead with unreleased work:
 
 1. Branch from the production tag: `git checkout -b hotfix/1.4.1 v1.4.0`
 2. Fix, PR into the hotfix branch, tag `v1.4.1-rc.1` from it.
-3. Deploy RC to UAT (or staging if UAT is occupied), verify the fix.
+3. Deploy the RC to an available acceptance environment and verify the fix.
 4. Tag `v1.4.1` on the same commit, deploy to production.
 5. Cherry-pick or merge the fix back to `main` immediately. This step is mandatory. A hotfix not merged back regresses in the next release.
 

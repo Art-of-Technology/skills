@@ -6,6 +6,8 @@ Every workflow carries a `concurrency` block keyed on workflow and ref. Branch-t
 
 ## 1. Optional staging: push to main
 
+If staging is absent, publish the commit image with a build-only workflow or build it once on the RC tag before UAT; production still promotes that accepted image without rebuilding.
+
 ```yaml
 # .github/workflows/staging.yml
 name: staging
@@ -71,7 +73,7 @@ jobs:
         run: curl -fsS --retry 10 --retry-delay 6 https://uat.example.com/health
 ```
 
-The retag step assumes the staging workflow already built `sha-<commit>` when the commit merged to main. If the rc tag points to a commit never built (stabilization branch), add a fallback build step guarded by an image-exists check.
+The retag step requires a previously built `sha-<commit>` image. If none exists, build it once on the RC tag before the retag step; use the resulting accepted image for production.
 
 ## 3. Production: release tag
 

@@ -43,6 +43,8 @@ Behaviour: buildx with registry cache (`type=registry,mode=max`). Tags `sha-<sha
 
 ## release.yml
 
+This describes the reusable workflow as implemented; staging and its smoke test are not required for every repository or release.
+
 Implements `aot-release-lifecycle`. Read that skill's `references/github-actions.md` before touching this file.
 
 | Trigger | Action |

@@ -99,7 +99,7 @@ None: stop after stage 1 and report that stage 2 is waiting on the org agent. Th
    ```
 2. Set inputs from the issue: node version, dotnet version, turbo filter, runner labels. Route test, build, and docker jobs to the `dc` runner labels named in the issue. Keep lint and typecheck on `ubuntu-latest`.
 3. Keep repo-specific steps (migrations, e2e, seed data) as extra jobs alongside the call. Never fork or copy a shared workflow into the repo.
-4. Verify release triggers follow `aot-release-lifecycle`: push to `main` deploys staging, `vX.Y.Z-rc.N` tags deploy UAT, `vX.Y.Z` tags promote the RC image to production with no rebuild.
+4. Verify release triggers follow `aot-release-lifecycle`: staging is optional, `vX.Y.Z-rc.N` tags deploy UAT, `vX.Y.Z` tags promote the RC image to production with no rebuild.
 5. Where a shared workflow lacks something this repo needs, comment on the ci-adoption issue. Do not patch around the gap locally.
 
 One PR titled **`ci: adopt org reusable workflows`**. Then `aot-pr-loop` to 4/5, without merging. Report lines removed, inputs chosen, gaps raised on the issue.
