@@ -1,6 +1,6 @@
 # Example GitHub Actions wiring for optional staging, RC, and production
 
-Three workflows, three triggers. Docker image is built once per commit and promoted by retagging.
+These example workflows build an image once per commit and promote it by retagging; the staging workflow is optional.
 
 Every workflow carries a `concurrency` block keyed on workflow and ref. Branch-triggered workflows also skip docs and image changes via `paths-ignore`. PR-triggered CI workflows in the same repo follow `aot-ci-workflows` stage 1 (PR event types plus a draft guard).
 

@@ -22,7 +22,7 @@ Core rule: the production tag must point to the same commit as the last approved
 - `main` is the only long-lived branch. Protect it. Require PR review and green CI.
 - Feature branches: `feature/<short-name>` or `fix/<short-name>`, branched from `main`, merged back via PR. Squash merge. Delete after merge.
 - No `develop` branch. No long-lived `release/*` branches unless a release needs stabilization while `main` moves on (see Stabilization below).
-- If staging is configured, follow the repository’s deployment and feature-flag conventions. Staging deployment and smoke tests are not required release gates.
+- If staging is configured, follow the repository’s deployment conventions. Staging deployment and smoke tests are not required release gates. Use a feature flag when a change is not ready to be visible, rather than holding it on a branch.
 
 ## Tag rules
 
