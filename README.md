@@ -17,6 +17,7 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 | aot-ci-workflows | Stop wasted Actions runs (concurrency, paths-ignore, draft skip, merge_group), then adopt the org reusable workflows |
 | aot-release-lifecycle | Trunk-based release flow: optional staging, rc tag→UAT, release tag→prod, promote-not-rebuild |
 | aot-ci-cd-optimization | Measure and speed up CI/CD with parallel checks, cancellation, efficient secret scans and tested-artifact reuse |
+| aot-test-bottleneck | Find why a test stage is slow, then run only affected tests, reuse results for unchanged lanes and replace agent-improvised test steps, without weakening gates |
 | blog-content-agent | Research, write, and publish codebase-aware blog posts |
 | aot-brief | Compact replies with DONE, NEXT, BLOCKED, DECIDE; invoke /aot-brief |
 | actionable-output | Short, clear, actionable responses: next action first, numbered steps, no tangents |
