@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup</title>
+<style>
+/* Replace these tokens with the colours and type of the app you are mocking. */
+:root{--bg:#101011;--bg-deep:#070708;--card:#171719;--hover:#1f1f22;--dim:#9c9ca1;--ink:#fafafa;
+  --accent:#3b82f6;--accent-soft:rgba(59,130,246,.16);--ok:#34d399;--ok-soft:rgba(52,211,153,.14);--warn:#fbbf24;--warn-soft:rgba(251,191,36,.13);--bad:#f87171;
+  --glass:rgba(255,255,255,.03);--line:rgba(255,255,255,.09);--r:10px;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3,p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.top .in{max-width:1180px;margin:0 auto;padding:12px 20px 10px}
+.top h1{font-size:17px;font-weight:600}.top .note{font-size:13px;color:var(--dim)}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.nav button{background:var(--glass);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--dim)}
+.nav button[aria-selected="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.nav .n{opacity:.6;margin-right:5px}
+.screen[hidden]{display:none}
+.lead{padding:26px 0 14px}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.lead h2{font-size:26px;font-weight:600;margin:2px 0 4px}.lead .sub{color:var(--dim);max-width:70ch}
+.terms{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.term{border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:13px;background:var(--glass)}.term span{color:var(--dim)}
+.optbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 6px}
+.optbar .lbl{font-size:13px;color:var(--dim)}
+.optbar button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:7px 12px;font-size:14px}
+.optbar button[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.rec{font-size:11px;background:var(--ok-soft);color:var(--ok);border-radius:999px;padding:1px 8px;margin-left:6px;white-space:nowrap}
+.why{font-size:14px;color:var(--dim);margin-bottom:12px}.why b{color:var(--ok)}
+.frame{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+.fbar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg-deep);border-bottom:1px solid var(--line);font-size:12px;color:var(--dim)}
+.fbar i{width:9px;height:9px;border-radius:50%;background:var(--hover);display:inline-block}
+.fbar .url{margin-left:8px;background:var(--card);border-radius:6px;padding:2px 10px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.app{display:grid;grid-template-columns:150px minmax(0,1fr);min-height:360px}
+.side{background:var(--bg-deep);border-right:1px solid var(--line);padding:12px 8px;font-size:13px}
+.side .it{padding:6px 8px;border-radius:7px;color:var(--dim)}.side .it.on{background:var(--hover);color:var(--ink)}
+.main{padding:16px;min-width:0;font-size:14px}.main h3{font-size:16px;font-weight:600}
+.muted{color:var(--dim)}.small{font-size:13px}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 12px;font-size:13px}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}.btn.ghost{background:transparent}.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{display:inline-block;font-size:11px;border-radius:999px;padding:1px 8px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+.card{border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:12px}
+.banner{border-radius:8px;padding:8px 12px;font-size:13px;margin:8px 0;background:var(--accent-soft)}
+input[type=text],select,textarea{background:var(--bg-deep);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:14px;width:100%;max-width:100%}
+.f{display:grid;gap:4px;font-size:13px;color:var(--dim);margin-bottom:10px}
+.seg{display:inline-flex;justify-self:start;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:7px 14px;font-size:13px;color:var(--dim)}.seg button[aria-checked="true"]{background:var(--accent);color:#fff}
+.fig{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px}.fig svg{width:100%;height:auto;display:block}
+.fig text{font-size:13px;fill:var(--ink)}.fig .box{fill:var(--bg);stroke:var(--line)}.fig .edge line{stroke:var(--dim);stroke-width:1.5}.fig .edge polygon{fill:var(--dim)}.fig .edge text{fill:var(--dim);font-size:12px}
+.fig .on .box{stroke:var(--accent);fill:var(--accent-soft);stroke-width:2}.fig .edge.on line{stroke:var(--accent);stroke-width:2.5}.fig .edge.on polygon{fill:var(--accent)}
+.stepper{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;margin-top:12px}.stepper .txt{font-size:16px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.lrow{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:9px 8px;font-size:13px}
+.lrow.sel,.fcard.sel{background:var(--accent-soft)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.fcard{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:12px;font-size:13px}
+.err{color:var(--bad);font-size:13px}
+.pick{margin-top:18px;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--card)}
+.pick h3{font-size:15px;margin-bottom:8px}.pick label.o{display:flex;gap:8px;padding:5px 0;font-size:14px}.pick .st{font-size:13px;color:var(--ok);margin-left:8px}
+.next{display:flex;justify-content:flex-end;margin-top:18px}
+table.props{width:100%;border-collapse:collapse;font-size:14px}table.props td{border-top:1px solid var(--line);padding:9px 8px;vertical-align:top}
+@media (max-width:860px){.app,.split,.stepper{grid-template-columns:minmax(0,1fr)}.side{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <h1>TITLE: click-through mockup</h1>
+  <p class="note">Sample data. Nothing here is saved or sent anywhere. Click everything; pick an option under each screen; then press <b>Send to Agent</b>.</p>
+  <div class="nav" role="tablist" id="nav"></div>
+</div></header>
+<div class="wrap" id="screens"></div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* One entry per screen. `opts`, `rec`, `why`, `ask` only where a layout is really open. `once:true` for a screen that is a form the reader fills in. */
+const SCREENS=[
+ {id:'how',part:'Overview',title:'How it works',sub:'One sentence: who does what.',terms:[['Term','what it means'],['Other term','what it means']]},
+ {id:'items',part:'Part 1',title:'Sample screen',sub:'One sentence about this screen.',terms:[['Item','a thing in the list']],
+  opts:[['A','List with detail beside it'],['B','Cards']],rec:'A',why:'One line: why this option, and what the other one costs.',
+  side:'Items',url:'app.example.com/items',ask:'Which layout for this screen?'},
+ {id:'open',part:'Before anything is filed',title:'Open points',sub:'Things I assumed that you have not ruled on. Say OK or what to change, then send.',once:true}
+];
+const MENU=['Home','Items','Settings'];          /* the mocked app's own menu */
+const S={scr:0,lay:Object.fromEntries(SCREENS.filter(d=>d.opts).map(d=>[d.id,d.rec]))};
+
+/* ---------- shell: leave as it is ---------- */
+function shell(){
+  $('#nav').innerHTML=SCREENS.map((d,i)=>`<button role="tab" data-act="go" data-i="${i}" aria-selected="${i===S.scr}"><span class="n">${i+1}</span>${d.title}</button>`).join('');
+  $('#screens').innerHTML=SCREENS.map((d,i)=>`<section class="screen" id="scr-${d.id}" ${i===S.scr?'':'hidden'}>
+    <div class="lead"><p class="kicker">${d.part} · screen ${i+1} of ${SCREENS.length}</p><h2>${d.title}</h2><p class="sub">${d.sub}</p>
+      ${d.terms?`<div class="terms">${d.terms.map(t=>`<span class="term"><b>${t[0]}</b> <span>= ${t[1]}</span></span>`).join('')}</div>`:''}</div>
+    <div data-opt="${d.id}"></div><div data-dyn="${d.id}"></div>${d.opts?pickForm(d):''}
+    <div class="next">${i<SCREENS.length-1?`<button class="btn pri" data-act="go" data-i="${i+1}">Next: ${SCREENS[i+1].title} →</button>`:''}</div></section>`).join('');
+}
+function pickForm(d){return `<form class="pick" data-lavish-question="layout-${d.id}" data-pick="${d.id}"><h3>Your pick: ${d.ask}</h3>
+  ${d.opts.map(o=>`<label class="o"><input type="radio" name="pick-${d.id}" value="${o[0]}: ${o[1]}"> <span><b>${o[0]}</b> ${o[1]}${o[0]===d.rec?'<span class="rec">my pick</span>':''}</span></label>`).join('')}
+  <label class="f" style="margin-top:8px">Anything to change on this screen? (optional)<input type="text" name="note"></label>
+  <div class="row"><button class="btn pri" type="submit">Queue this answer</button><span class="st" role="status" data-st="${d.id}"></span></div></form>`}
+function frame(d,inner){return `<div class="frame"><div class="fbar"><i></i><i></i><i></i><span class="url">${d.url}</span></div><div class="app"><nav class="side" aria-label="App menu (mock)">${MENU.map(n=>`<div class="it ${n===d.side?'on':''}">${n}</div>`).join('')}</nav><div class="main">${inner}</div></div></div>`}
+function render(){const d=SCREENS[S.scr];
+  document.querySelectorAll('.screen').forEach((el,i)=>el.hidden=i!==S.scr);
+  document.querySelectorAll('#nav button').forEach((b,i)=>b.setAttribute('aria-selected',i===S.scr));
+  $(`[data-opt="${d.id}"]`).innerHTML=d.opts?`<div class="optbar" role="tablist" aria-label="Layout options"><span class="lbl">Layout:</span>${d.opts.map(x=>`<button role="tab" data-act="lay" data-k="${d.id}" data-v="${x[0]}" aria-selected="${S.lay[d.id]===x[0]}"><b>${x[0]}</b> ${x[1]}${x[0]===d.rec?'<span class="rec">my pick</span>':''}</button>`).join('')}</div><p class="why"><b>Why ${d.rec}:</b> ${d.why}</p>`:'';
+  const dyn=$(`[data-dyn="${d.id}"]`);
+  if(!d.once||!dyn.innerHTML)dyn.innerHTML=R[d.id](d);   /* once: a form the reader fills in is built one time, so their answers survive a change of tab */
+  if(AFTER[d.id])AFTER[d.id]();
+}
+const R={},ACT={},AFTER={};       /* R: what a screen shows. ACT: what a click does. AFTER: run after each render. */
+ACT.go=b=>{S.scr=+b.dataset.i;render();window.scrollTo(0,0)};
+ACT.lay=b=>{S.lay[b.dataset.k]=b.dataset.v;render()};
+
+/* ---------- screen 1: the system as a figure, with a today/after switch and a stepper ---------- */
+const H={mode:'after',step:0};
+const STEPS=[[['n-a','e-1'],'First the runner asks.'],[['n-b','e-2'],'Then the server answers.'],[['n-a'],'Then the work happens.']];
+R.how=()=>{const today=H.mode==='today',st=STEPS[H.step];
+  return `<div class="row" style="margin-bottom:10px"><div class="seg" role="radiogroup" aria-label="Today or after"><button role="radio" data-act="h-mode" data-v="today" aria-checked="${today}">Today</button><button role="radio" data-act="h-mode" data-v="after" aria-checked="${!today}">After</button></div></div>
+  <div class="fig"><svg viewBox="0 0 920 150" role="img" aria-label="System map">
+    <g id="n-a"><title>Part A</title><rect class="box" x="20" y="40" width="300" height="60" rx="10"/><text x="40" y="76">${today?'Part A (today)':'Part A'}</text></g>
+    <g id="n-b"><title>Part B</title><rect class="box" x="600" y="40" width="300" height="60" rx="10"/><text x="620" y="76">${today?'Part B (today)':'Part B'}</text></g>
+    <g id="e-1" class="edge"><title>asks</title><text x="460" y="52" text-anchor="middle">asks</text><line x1="330" y1="60" x2="582" y2="60"/><polygon points="596,60 582,54 582,66"/></g>
+    <g id="e-2" class="edge"><title>answers</title><text x="460" y="102" text-anchor="middle">answers</text><line x1="590" y1="88" x2="338" y2="88"/><polygon points="324,88 338,82 338,94"/></g>
+  </svg></div>
+  ${today?'<div class="banner">What is wrong today, in one line.</div>':`<div class="stepper"><p class="txt"><b>Step ${H.step+1} of ${STEPS.length}.</b> ${st[1]}</p><div class="row"><button class="btn" data-act="h-step" data-v="-1" ${H.step===0?'disabled':''}>← Back</button><button class="btn pri" data-act="h-step" data-v="1">${H.step===STEPS.length-1?'Start again':'Next step →'}</button></div></div>`}`};
+AFTER.how=()=>{if(H.mode==='after')STEPS[H.step][0].forEach(id=>document.getElementById(id).classList.add('on'))};
+ACT['h-mode']=b=>{H.mode=b.dataset.v;H.step=0;render()};
+ACT['h-step']=b=>{H.step=+b.dataset.v>0?(H.step+1)%STEPS.length:Math.max(0,H.step-1);render()};
+
+/* ---------- screen 2: one state, two layouts over it ---------- */
+const L={items:[{id:1,name:'First item',text:'Sample text of the first item.'},{id:2,name:'Second item',text:'Sample text of the second item.'}],sel:null,adding:false,err:false};
+const detail=()=>{const it=L.items.find(x=>x.id===L.sel);return it?`<div class="card"><b>Detail of ${esc(it.name)}</b><p class="muted" style="margin-top:6px">${esc(it.text)}</p></div>`:'<p class="muted">Pick an item.</p>'};
+const adder=()=>L.adding?`<div class="row"><input type="text" id="l-name" placeholder="Name" aria-label="Name" style="width:200px"><button class="btn pri" data-act="l-add">Add</button><button class="btn ghost" data-act="l-new" data-v="">Cancel</button>${L.err?'<span class="err">Type a name.</span>':''}</div>`:`<button class="btn pri" data-act="l-new" data-v="1">+ New</button>`;
+R.items=d=>frame(d,`<div class="row" style="justify-content:space-between;margin-bottom:10px"><h3>Items</h3>${adder()}</div>`+(S.lay.items==='A'
+  ?`<div class="split"><div>${L.items.map(it=>`<button class="lrow ${L.sel===it.id?'sel':''}" data-act="l-sel" data-id="${it.id}">${esc(it.name)}</button>`).join('')}</div><div>${detail()}</div></div>`
+  :`<div class="cards">${L.items.map(it=>`<button class="fcard ${L.sel===it.id?'sel':''}" data-act="l-sel" data-id="${it.id}">${esc(it.name)}</button>`).join('')}</div><div style="margin-top:12px">${detail()}</div>`));
+ACT['l-sel']=b=>{L.sel=+b.dataset.id;render()};
+ACT['l-new']=b=>{L.adding=!!b.dataset.v;L.err=false;render();const i=$('#l-name');if(i)i.focus()};
+ACT['l-add']=()=>{const v=$('#l-name').value.trim();if(!v){L.err=true;render();return}const id=L.items.length+1;L.items.push({id,name:v,text:'New sample item.'});L.sel=id;L.adding=false;render()};
+
+/* ---------- last screen: what you assumed, for the person to rule on ---------- */
+const PROPS=[['P1','Short name of the point','What you propose, in one or two sentences.'],['P2','Another point','What you propose.']];
+R.open=()=>`<form class="pick" style="margin-top:0" data-lavish-question="open-points" data-props="1"><table class="props">${PROPS.map(p=>`<tr><td><b>${p[0]}</b></td><td><b>${p[1]}</b><br><span class="muted">${p[2]}</span></td><td style="min-width:150px"><select name="${p[0]}" aria-label="${p[0]} decision"><option value="OK">OK as proposed</option><option value="Change">Change it</option></select><input type="text" name="${p[0]}-note" placeholder="What to change" aria-label="${p[0]} what to change" style="margin-top:6px"></td></tr>`).join('')}</table>
+  <div class="row" style="margin-top:12px"><button class="btn pri" type="submit">Queue these answers</button><span class="st" role="status" data-st="open"></span></div></form>
+  <div class="banner" style="margin-top:16px"><b>When you are done:</b> press <b>Send to Agent</b> in the Lavish bar. Nothing is filed or built before that.</div>`;
+
+/* ---------- events and sending answers back: leave as it is ---------- */
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b||b.disabled)return;const fn=ACT[b.dataset.act];if(fn)fn(b)});
+function queue(prompt,opts,st){const ok=!!(window.lavish&&window.lavish.queuePrompt);if(ok)window.lavish.queuePrompt(prompt,opts);st.textContent=ok?'Queued. Press “Send to Agent” when you are done.':'Selected. Open this page through Lavish to send it.'}
+document.addEventListener('submit',e=>{const f=e.target;e.preventDefault();
+  if(f.dataset.pick){const id=f.dataset.pick,d=SCREENS.find(s=>s.id===id),fd=new FormData(f),v=fd.get('pick-'+id),note=(fd.get('note')||'').trim(),st=$(`[data-st="${id}"]`);
+    if(!v&&!note){st.textContent='Pick an option first.';return}
+    queue(`${d.title}: ${v?'use layout '+v:'no layout picked'}${note?'. Change: '+note:''}`,{tag:'choice',text:`${d.title}: ${v||'note only'}`,element:f,queueKey:'layout-'+id,data:{screen:id,answer:v,note}},st)}
+  if(f.dataset.props){const fd=new FormData(f),items=PROPS.map(p=>({id:p[0],label:p[1],decision:fd.get(p[0]),note:(fd.get(p[0]+'-note')||'').trim()}));
+    queue('Open points: '+items.map(i=>`${i.id} ${i.decision}${i.note?' ('+i.note+')':''}`).join('; ')+'. Account for every one of them.',{tag:'tracked-batch',text:'Open points',element:f,queueKey:'open-points',data:{items}},$('[data-st="open"]'))}});
+shell();render();
+</script>
+</body>
+</html>
