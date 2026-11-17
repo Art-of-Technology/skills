@@ -84,13 +84,13 @@ table.props{width:100%;border-collapse:collapse;font-size:14px}table.props td{bo
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-/* One entry per screen. `opts`, `rec`, `why`, `ask` only where a layout is really open. */
+/* One entry per screen. `opts`, `rec`, `why`, `ask` only where a layout is really open. `once:true` for a screen that is a form the reader fills in. */
 const SCREENS=[
  {id:'how',part:'Overview',title:'How it works',sub:'One sentence: who does what.',terms:[['Term','what it means'],['Other term','what it means']]},
  {id:'items',part:'Part 1',title:'Sample screen',sub:'One sentence about this screen.',terms:[['Item','a thing in the list']],
   opts:[['A','List with detail beside it'],['B','Cards']],rec:'A',why:'One line: why this option, and what the other one costs.',
   side:'Items',url:'app.example.com/items',ask:'Which layout for this screen?'},
- {id:'open',part:'Before anything is filed',title:'Open points',sub:'Things I assumed that you have not ruled on. Say OK or what to change, then send.'}
+ {id:'open',part:'Before anything is filed',title:'Open points',sub:'Things I assumed that you have not ruled on. Say OK or what to change, then send.',once:true}
 ];
 const MENU=['Home','Items','Settings'];          /* the mocked app's own menu */
 const S={scr:0,lay:Object.fromEntries(SCREENS.filter(d=>d.opts).map(d=>[d.id,d.rec]))};
@@ -113,7 +113,8 @@ function render(){const d=SCREENS[S.scr];
   document.querySelectorAll('.screen').forEach((el,i)=>el.hidden=i!==S.scr);
   document.querySelectorAll('#nav button').forEach((b,i)=>b.setAttribute('aria-selected',i===S.scr));
   $(`[data-opt="${d.id}"]`).innerHTML=d.opts?`<div class="optbar" role="tablist" aria-label="Layout options"><span class="lbl">Layout:</span>${d.opts.map(x=>`<button role="tab" data-act="lay" data-k="${d.id}" data-v="${x[0]}" aria-selected="${S.lay[d.id]===x[0]}"><b>${x[0]}</b> ${x[1]}${x[0]===d.rec?'<span class="rec">my pick</span>':''}</button>`).join('')}</div><p class="why"><b>Why ${d.rec}:</b> ${d.why}</p>`:'';
-  $(`[data-dyn="${d.id}"]`).innerHTML=R[d.id](d);
+  const dyn=$(`[data-dyn="${d.id}"]`);
+  if(!d.once||!dyn.innerHTML)dyn.innerHTML=R[d.id](d);   /* once: a form the reader fills in is built one time, so their answers survive a change of tab */
   if(AFTER[d.id])AFTER[d.id]();
 }
 const R={},ACT={},AFTER={};       /* R: what a screen shows. ACT: what a click does. AFTER: run after each render. */

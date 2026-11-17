@@ -50,6 +50,7 @@ What the script should cover:
 | Anything timed (a simulated wait) | Wait for it in the script and check the state afterwards. |
 | Sideways scroll on every screen | Wide chips and tables overflow without anyone noticing. |
 | The pick forms and the open-points form | Without Lavish they should say the answer is selected, not throw. |
+| Fill in a form, go to another screen, come back | A screen that is rebuilt on every click forgets what was typed and chosen. |
 
 Set a select's value and dispatch a `change` event to drive it; a script-set value alone does not fire one.
 
