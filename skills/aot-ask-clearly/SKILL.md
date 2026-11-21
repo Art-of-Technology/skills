@@ -67,11 +67,15 @@ This:
 
 > Answer in one line, for example: `1 none yet, 2 yes, 3 yes`
 >
-> 1. **Is there a real customer waiting to try the dashboard?** The plan says "the waiting team", but I found no name in any issue. Answer with the company's name, or `none yet`. If there is none, the 4 December milestone cannot hold.
-> 2. **What do they pay?** No number exists yet. My suggestion: free until the January review, price decided then. `yes`, or a number per month.
+> 1. **Is there a real customer waiting to try the dashboard?** The plan says "the waiting team", but I found no name in any issue. I have no suggestion; only you know. Answer with the company's name, or `none yet`. If there is none, the 4 December milestone cannot hold.
+> 2. **Should the dashboard be free until the January review?** No price exists yet; my suggestion is to decide it at that review. `yes`, or a number per month.
 > 3. **Should the first tasks go into the Dashboard project?** A guess on my part. `yes`, or name another project.
 >
 > Nothing needed from you: the schema pull request is not ready; its checks are still running.
+
+## With a skill that fixes the reply's shape
+
+When a skill such as `aot-brief` sets the blocks or the length of the whole reply, keep its shape for everything else and put the questions and actions last, in this skill's format. The ask is the exception to a line or word cap: an ask cut down to fit a limit is the ask this skill exists to prevent.
 
 ## Check before sending
 
