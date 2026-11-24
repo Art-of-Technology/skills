@@ -53,7 +53,7 @@ Blue: happens by itself. Amber: a seat acts. Green: a person.
 
 Picture first: the block is the first thing in the description, above the first heading, with the legend line under it. The template check only looks at the required headings and what is under them, so text above the first heading is accepted (`missingSections` in `src/lib/issue-templates.ts` of the Collab repo).
 
-Collab draws the block in an issue description and in a note. In a comment it stays as text, so never put a diagram in a comment: edit the description.
+Collab draws the block in an issue description and in a note. In a comment it stays as text, so never put a diagram in a comment: put it in the issue description or in the note itself.
 
 ## Size and kind
 
