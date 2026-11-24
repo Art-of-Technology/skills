@@ -20,6 +20,7 @@ Shared agent skills for Claude Code, Codex, and other coding agents.
 | aot-test-bottleneck | Find why a test stage is slow, then run only affected tests, reuse results for unchanged lanes and replace agent-improvised test steps, without weakening gates |
 | aot-lavish-mockup | Clickable multi-screen UI mockup in Lavish: working layout options with one recommendation per screen, pick forms that send the answers back, clicked through before hand-over |
 | aot-ask-clearly | Ask a person so they can answer in one short line: plain-English questions that each carry a suggested answer, click-by-click steps for what only they can do, then act on the answers |
+| aot-diagram | Flow diagrams in Collab issues and notes as Mermaid text that Collab draws: plain look, boxes outlined by who acts, picture first, 12 boxes at most |
 | blog-content-agent | Research, write, and publish codebase-aware blog posts |
 | aot-brief | Compact replies with DONE, NEXT, BLOCKED, DECIDE; invoke /aot-brief |
 | actionable-output | Short, clear, actionable responses: next action first, numbered steps, no tangents |
